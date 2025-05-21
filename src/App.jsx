@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import TotalUsers from './components/userComponents/TotalUsers';
 import SearchUsers from './components/userComponents/SearchUser';
 import { Link } from 'react-router-dom';
+import './index.css';
 const isStandalone = !window.__POWERED_BY_HOST__;
 
 
