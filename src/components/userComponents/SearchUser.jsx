@@ -9,15 +9,12 @@ const SearchUsers = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-
-
   /**
-  * @param {Event} event - Form submission event.
-  */
-
+    * @param {Event} event - The form submission event.
+    * @return {void} Updates search parameters based on user input.
+    */
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (searchQuery.length > 0) {
       setSearchParams({ search: searchQuery });
     } else {
@@ -26,18 +23,16 @@ const SearchUsers = () => {
   }
 
   /**
-   * @param {Event} e - Input event containing search query.
-   */
+  * @param {Event} e - Input event containing search query.
+  * @return {void} Updates the search query and navigates when input is empty.
+  */
   const handleSearchChange = (e) => {
     let trimmedValue = e.target.value.trimStart().replace(/\s+/g, ' ');
-
     setSearchQuery(trimmedValue)
-
     if (trimmedValue === "" || trimmedValue === null) {
       navigate(-1);
       setSearchParams({});
     }
-
   };
 
   return (
@@ -50,7 +45,6 @@ const SearchUsers = () => {
         placeholder="Type to search"
         value={searchQuery}
       />
-
       <button className="ml-4" type="submit"><FontAwesomeIcon icon={faSearch} /></button>
     </form>
   );

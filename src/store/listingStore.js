@@ -2,8 +2,6 @@ import { create } from "zustand";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-
-
 /**
  * Creates a Zustand store to handle user actions and state updates.
  */
@@ -22,7 +20,6 @@ const listingStore = create((set, get) => ({
    * @param {Object} payload - Contains search query and pagination details.
    * @return {Promise<Object>} API response.
    */
-
   async fetchAllUsersData(payload) {
     const controller = new AbortController();
     const { signal } = controller;
@@ -44,7 +41,6 @@ const listingStore = create((set, get) => ({
       });
     };
     
-
     const fetchPromise = axios.get(`${process.env.API}/users`, {
       params: {
         page: payload?.pageNumber,
@@ -55,10 +51,8 @@ const listingStore = create((set, get) => ({
     });
 
     const timeoutPromise = abortRequest(5000);
-
     try {
       const response = await Promise.race([fetchPromise, timeoutPromise]);
-
       set({
         usersData: response.data.data,
         totalData: response.data.totalData,
@@ -87,7 +81,7 @@ const listingStore = create((set, get) => ({
   async deleteUser(userId, searchParams) {
     try {
       const response = await axios.delete(
-    `https://crud-vip.vercel.app/api/users/${userId}`
+    `${process.env.API}/users/${userId}`
       );
 
       set({
@@ -113,11 +107,9 @@ const listingStore = create((set, get) => ({
    * @returns {Promise<Object>} API response.
    */
   async updateStatus(payload) {
-    
-
     try {
       const response = await axios.patch(
-       `https://crud-vip.vercel.app/api/users/${payload.id}/status`,
+       `${process.env.API}/users/${payload.id}/status`,
         { status: payload.newStatus },
         {
           headers: {
@@ -127,7 +119,6 @@ const listingStore = create((set, get) => ({
       );
 
       const currentUsers = get().usersData;
-
       const updatedUsersData = currentUsers.map((user) => {
         if (user._id === payload.id) {
           return {
